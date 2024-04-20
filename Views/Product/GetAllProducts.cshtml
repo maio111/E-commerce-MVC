@@ -4,12 +4,6 @@
     Layout = "_Layout";
 }
 
-@{
-    int CategoryId = 0;
-    string Size = null;
-    string Color = null;
-    int Price = 0;
-}
 <main>
     <!-- breadcrumb Start-->
     <div class="page-notification">
@@ -47,63 +41,10 @@
                             <!-- Select City items start -->
                             <div class="select-job-items2">
                                 <select name="CategoryId" id="categoryId" class="form-control">
-                                    <option value="0">All Categories</option>
-                                    <option value="1">Shirt</option>
-                                    <option value="2">T-shirt</option>
-                                    <option value="3">Bants</option>
-                                    <option value="4">Dress</option>
-                                </select>
-
-                                <select name="Price" id="Size" class="form-control">
-                                    <option value="0">All Sizes</option>
-                                    <option value="1">Xl</option>
-                                    <option value="2">L</option>
-                                    <option value="3">M</option>
-                                    <option value="4">S</option>
-                                </select>
-                                @*
-                                <select name="select2">
-                                <option value="">Category</option>
-                                <option value="">Shat</option>
-                                <option value="">T-shart</option>
-                                <option value="">Pent</option>
-                                <option value="">Dress</option>
-                                </select> *@
-                            </div>
-                            <!--  Select City items End-->
-                            <!-- Select State items start -->
-                            @* <div class="select-job-items2">
-                            <select name="select3">
-                            <option value="">Size</option>
-                            <option value="">SM</option>
-                            <option value="">LG</option>
-                            <option value="">XL</option>
-                            <option value="">XXL</option>
-                            </select>
-                            </div> *@
-                            <!--  Select State items End-->
-                            <!-- Select km items start -->
-                            <div class="select-job-items2">
-                                <select name="select5">
-                                    <option value="">Color</option>
-                                    <option value="">Whit</option>
-                                    <option value="">Green</option>
-                                    <option value="">Blue</option>
-                                    <option value="">Sky Blue</option>
-                                    <option value="">Gray</option>
-                                </select>
-                            </div>
-                            <!--  Select km items End-->
-                            <!-- Select km items start -->
-                            <div class="select-job-items2">
-                                <select name="select6">
-                                    <option value="">Price range</option>
-                                    <option value="">$10 to $20</option>
-                                    <option value="">$20 to $30</option>
-                                    <option value="">$50 to $80</option>
-                                    <option value="">$100 to $120</option>
-                                    <option value="">$200 to $300</option>
-                                    <option value="">$500 to $600</option>
+                                    <option value="0"><a asp-route-Category_Id="0" asp-action="GetProductsByCategoryId">All Categories </a></option>
+                                    <option value="1"> <a asp-route-Category_Id="0" asp-action="GetProductsByCategoryId"> Shirt </a></option>
+                                    <option value="2"> <a asp-route-Category_Id="0" asp-action="GetProductsByCategoryId">T-shirt </a></option>
+                                    <option value="3"><a asp-route-Category_Id="0" asp-action="GetProductsByCategoryId">Bants</a></option>
                                 </select>
                             </div>
                             <!--  Select km items End-->
@@ -112,18 +53,7 @@
                     <!-- Job Category Listing End -->
                 </div>
 
-                <script>
-                    var selectElement = document.getElementById("categoryId");
 
-                    // Add an event listener to capture the change event
-                    selectElement.addEventListener("change", function () {
-                        // Get the selected value
-                        var selectedValue = selectElement.value;
-
-                        // Assign the selected value to the CategoryId variable
-                    @CategoryId = selectedValue;
-                    });
-                </script>
                 <!--?  Right content -->
                 <div class="col-xl-9 col-lg-9 col-md-8 ">
                     <!--? New Arrival Start -->
@@ -132,227 +62,39 @@
 
                             @foreach (Product p in Model)
                             {
-                                if ((p.Category_Id == CategoryId || CategoryId == 0)) //&& (p.Size == Size || Size == null) && (p.Color == Color || Color == null) )
-                                {
-                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                        <div class="single-new-arrival mb-50 text-center">
-                                            <div class="popular-img">
-                                                <img src="/img/gallery/@p.Image_Url" alt="">
-                                                <div class="favorit-items">
-                                                    <a asp-action="AddToCart" asp-route-Id="@p.Id">
-                                                        <img src="/img/gallery/favorit-card.png" alt="">
-                                                    </a>
-                                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                    <div class="single-new-arrival mb-50 text-center">
+                                        <div class="popular-img">
+                                            <img src="/img/gallery/@p.Image_Url" alt="">
+                                            <div class="favorit-items">
+                                                <a asp-action="AddToCart" asp-route-Id="@p.Id">
+                                                    <img src="/img/gallery/favorit-card.png" alt="">
+                                                </a>
                                             </div>
-                                            <div class="popular-caption">
-                                                <h3><a href="/Product/Details?id=@p.Id">@p.Name</a></h3>
-                                                <div class="rating mb-10">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <span>@p.Price</span>
-                                                <div>
-                                                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@p.Id" class="btn ">Add To Cart</a>
-                                                    <a asp-controller="Product" asp-action="AddToWishList" asp-route-productId="@p.Id" class="btn ">Add To WishingList</a>
-@*                                                     <a asp-action="AddToWishList" asp-route-Id="@p.Id" class="btn btn-info">Add To WishingList</a>
- *@                                                </div>
+                                        </div>
+                                        <div class="popular-caption">
+                                            <h3><a href="/Product/Details?id=@p.Id">@p.Name</a></h3>
+                                            <div class="rating mb-10">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <span>@p.Price</span>
+                                            <div>
+                                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@p.Id" class="btn ">Add To Cart</a>
+                                                <a asp-controller="Product" asp-action="AddToWishList" asp-route-productId="@p.Id" class="btn ">Add To WishingList</a>
+                                                @*                                                     <a asp-action="AddToWishList" asp-route-Id="@p.Id" class="btn btn-info">Add To WishingList</a>
+                                            *@
                                             </div>
                                         </div>
                                     </div>
-
-                                }
+                                </div>
 
                             }
-                            @*
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                            <div class="popular-img">
-                            <img src="/img/gallery/arrival2.png" alt="">
-                            <div class="favorit-items">
-                            <!-- <span class="flaticon-heart"></span> -->
-                            <img src="/img/gallery/favorit-card.png" alt="">
-                            </div>
-                            </div>
-                            <div class="popular-caption">
-                            <h3><a href="product_details.html">Knitted Jumper</a></h3>
-                            <div class="rating mb-10">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            </div>
-                            <span>$ 30.00</span>
-                            </div>
-                            </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                            <div class="popular-img">
-                            <img src="/img/gallery/arrival3.png" alt="">
-                            <div class="favorit-items">
-                            <!-- <span class="flaticon-heart"></span> -->
-                            <img src="/img/gallery/favorit-card.png" alt="">
-                            </div>
-                            </div>
-                            <div class="popular-caption">
-                            <h3><a href="product_details.html">Knitted Jumper</a></h3>
-                            <div class="rating mb-10">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            </div>
-                            <span>$ 30.00</span>
-                            </div>
-                            </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                            <div class="popular-img">
-                            <img src="/img/gallery/arrival4.png" alt="">
-                            <div class="favorit-items">
-                            <!-- <span class="flaticon-heart"></span> -->
-                            <img src="/img/gallery/favorit-card.png" alt="">
-                            </div>
-                            </div>
-                            <div class="popular-caption">
-                            <h3><a href="product_details.html">Knitted Jumper</a></h3>
-                            <div class="rating mb-10">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            </div>
-                            <span>$ 30.00</span>
-                            </div>
-                            </div>
-                            </div>
-                            <div class="col-xl43 col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                            <div class="popular-img">
-                            <img src="/img/gallery/arrival5.png" alt="">
-                            <div class="favorit-items">
-                            <!-- <span class="flaticon-heart"></span> -->
-                            <img src="/img/gallery/favorit-card.png" alt="">
-                            </div>
-                            </div>
-                            <div class="popular-caption">
-                            <h3><a href="product_details.html">Knitted Jumper</a></h3>
-                            <div class="rating mb-10">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            </div>
-                            <span>$ 30.00</span>
-                            </div>
-                            </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                            <div class="popular-img">
-                            <img src="/img/gallery/arrival6.png" alt="">
-                            <div class="favorit-items">
-                            <!-- <span class="flaticon-heart"></span> -->
-                            <img src="/img/gallery/favorit-card.png" alt="">
-                            </div>
-                            </div>
-                            <div class="popular-caption">
-                            <h3><a href="product_details.html">Knitted Jumper</a></h3>
-                            <div class="rating mb-10">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            </div>
-                            <span>$ 30.00</span>
-                            </div>
-                            </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                            <div class="popular-img">
-                            <img src="/img/gallery/arrival7.png" alt="">
-                            <div class="favorit-items">
-                            <!-- <span class="flaticon-heart"></span> -->
-                            <img src="/img/gallery/favorit-card.png" alt="">
-                            </div>
-                            </div>
-                            <div class="popular-caption">
-                            <h3><a href="product_details.html">Knitted Jumper</a></h3>
-                            <div class="rating mb-10">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            </div>
-                            <span>$ 30.00</span>
-                            </div>
-                            </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                            <div class="popular-img">
-                            <img src="/img/gallery/arrival8.png" alt="">
-                            <div class="favorit-items">
-                            <!-- <span class="flaticon-heart"></span> -->
-                            <img src="/img/gallery/favorit-card.png" alt="">
-                            </div>
-                            </div>
-                            <div class="popular-caption">
-                            <h3><a href="product_details.html">Knitted Jumper</a></h3>
-                            <div class="rating mb-10">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            </div>
-                            <span>$ 30.00</span>
-                            </div>
-                            </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                            <div class="popular-img">
-                            <img src="/img/gallery/arrival1.png" alt="">
-                            <div class="favorit-items">
-                            <!-- <span class="flaticon-heart"></span> -->
-                            <img src="/img/gallery/favorit-card.png" alt="">
-                            </div>
-                            </div>
-                            <div class="popular-caption">
-                            <h3><a href="product_details.html">Knitted Jumper</a></h3>
-                            <div class="rating mb-10">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            </div>
-                            <span>$ 30.00</span>
-                            </div>
-                            </div>
-                            </div>
-                            </div>
-                            <!-- Button -->
-                            <div class="row justify-content-center">
-                            <div class="room-btn mt-20">
-                            <a href="catagori.html" class="border-btn">Browse More</a>
-                            </div>
-                            </div>
-                            </div>
-                            <!--? New Arrival End -->
-                            *@
+
+
                         </div>
                     </div>
                 </div>
